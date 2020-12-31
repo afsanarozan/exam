@@ -1,0 +1,77 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: example
+
+---
+apiVersion: v1
+data:
+    APP_NAME: "pingpong-app"
+    PORT: "8080"
+
+kind: ConfigMap
+metadata:
+    name: test-service
+    namespace: example
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: test-service
+    namespace: example
+spec:
+    selector:
+    matchLabels:
+        app: services
+    replicas: 2
+    template:
+    metadata:
+        labels:
+        app: services
+    spec:
+        containers:
+        - name: pingpong-apps
+            image: afsanarozan/exam:v1
+            ports:
+            - containerPort: 3000
+            envFrom:
+            - configMapRef:
+                name: test-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: test-service
+    namespace: example
+    labels:
+    app: services
+spec:
+    selector:
+    app: services
+    ports:
+    - port: 3000
+        targetPort: 3000
+        protocol: TCP
+        name: serviceport
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: ingress-nginx
+    labels:
+    name: ingress-nginx
+spec:
+    rules:
+    - host: k8s.example.com
+        http:
+        paths:
+            - path: /
+            backend:
+                serviceName: test-service
+                servicePort: 80
+    
+    

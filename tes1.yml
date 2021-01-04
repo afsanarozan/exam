@@ -1,11 +1,5 @@
 ---
 apiVersion: v1
-kind: Namespace
-metadata:
-    name: example
-
----
-apiVersion: v1
 data:
     APP_NAME: "pingpong-app"
     PORT: "8080"
@@ -13,14 +7,13 @@ data:
 kind: ConfigMap
 metadata:
     name: test-service
-    namespace: example
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: test-service
-    namespace: example
+
 spec:
     replicas: 2
     selector:
@@ -45,7 +38,6 @@ apiVersion: v1
 kind: Service
 metadata:
     name: test-service
-    namespace: example
     labels:
       app: services
 spec:
@@ -66,7 +58,6 @@ metadata:
     name: ingress-nginx
     labels:
       name: ingress-nginx
-    namespace: example
 spec:
   rules:
     - host: k8s.example.local
@@ -75,4 +66,4 @@ spec:
           - path: /
             backend:
               serviceName: test-service
-              servicePort: 80
+              servicePort: 3000

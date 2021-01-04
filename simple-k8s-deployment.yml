@@ -26,7 +26,6 @@ metadata:
 spec:
   selector:
     app: api
-  type: NodePort
   ports:
     - port: 8081
       targetPort: 3000

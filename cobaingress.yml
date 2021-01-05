@@ -4,6 +4,6 @@ metadata:
   name: test-ingress
 spec:
   backend:
-    serviceName: test-service
-    servicePort: 80
+    serviceName: pingpong-deployment
+    servicePort: 
 

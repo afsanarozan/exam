@@ -41,6 +41,7 @@ metadata:
     labels:
       app: services
 spec:
+    type: LoadBalancer
     selector:
       app: services
     ports:
@@ -49,18 +50,14 @@ spec:
         protocol: TCP
         name: serviceport
 ---
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
 metadata:
-    name: test-service
-    labels:
-      name: ingress-nginx
+  name: allow-all
 spec:
-  rules:
-    - host: k8s.example.local
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: test-service
-              servicePort: 80
+  podSelector: {}
+  ingress:
+  - {}
+  policyTypes:
+  - Ingress
+

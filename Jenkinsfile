@@ -33,7 +33,7 @@ pipeline {
         stage('Build Project') {
             steps{
                 script{
-                   sh 'docker system prune --all',
+                   execCommand: 'docker system prune --all'
                }
             }
         }

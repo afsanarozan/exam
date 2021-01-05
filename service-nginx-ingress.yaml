@@ -51,6 +51,7 @@ metadata:
 spec:
     selector:
       app: services
+    type: NodePort
     ports:
       - port: 80
         targetPort: 3000
@@ -62,7 +63,7 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-    name: ingress-nginx
+    name: test-service
     labels:
       name: ingress-nginx
     namespace: example

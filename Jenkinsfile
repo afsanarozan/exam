@@ -10,29 +10,31 @@ pipeline {
         
     }
     stages {
-        stage('Clone Code') {
-            steps{
-               script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'nopal',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        execCommand: 'git clone https://github.com/afsanarozan/exam.git;',
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
-            }
-        }
+        // stage('Clone Code') {
+        //     steps{
+        //        script {
+        //             sshPublisher(
+        //                 publishers: [
+        //                     sshPublisherDesc(
+        //                         configName: 'nopal',
+        //                         verbose: false,
+        //                         transfers: [
+        //                             sshTransfer(
+        //                                 execCommand: 'git clone https://github.com/afsanarozan/exam.git;',
+        //                             )
+        //                         ]
+        //                     )
+        //                 ]
+        //             )
+        //         }
+        //     }
+        // }
 
         stage('Build Project') {
             steps{
-                echo 'build..'
+                script{
+                   builderDocker = docker.build('afsanarozan/exam:v2')
+               }
             }
         }
 
@@ -46,9 +48,7 @@ pipeline {
         
         stage('Build Image') {
             steps{
-               script{
-                   builderDocker = docker.build('afsanarozan/exam:v2')
-               }
+               echo 'build..'
             }
         }
         

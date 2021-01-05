@@ -33,7 +33,7 @@ pipeline {
         stage('Build Project') {
             steps{
                 script{
-                   execCommand: 'docker rmi afsanarozan/exam:v2',
+                   sh 'docker rmi afsanarozan/exam:v2',
                    builderDocker = docker.build('afsanarozan/exam:v2')
                }
             }

@@ -33,8 +33,6 @@ pipeline {
                }
             }
         }
-        
-
         stage('Deployment') {
             when {
                 expression {
@@ -50,7 +48,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'sudo kubectl apply -f simple-k8s-deployment.yml',
+                                        execCommand: 'git clone https://github.com/afsanarozan/cafe-frontend.git',
                                     )
                                 ]
                             )
@@ -59,7 +57,6 @@ pipeline {
                 }
             }
         }
-
         stage('Run Testing Development') {
             steps{
                 script{

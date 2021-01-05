@@ -46,23 +46,9 @@ pipeline {
         
         stage('Build Image') {
             steps{
-               script {
-                    sshPublisher(
-                        publishers: [
-                            sshPublisherDesc(
-                                configName: 'nopal',
-                                verbose: false,
-                                transfers: [
-                                    sshTransfer(
-                                        remoteDirectory: 'exam',
-                                        execCommand: 'cd exam; sudo docker build -t afsanarozan/exam:v2 .',
-                                        execTimeout: 18000,
-                                    )
-                                ]
-                            )
-                        ]
-                    )
-                }
+               script{
+                   builderDocker = docker.build('afsanarozan/exam:v2')
+               }
             }
         }
         

@@ -20,7 +20,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'git clone https://github.com/afsanarozan/exam.git; sudo mkdir coba',
+                                        execCommand: 'git clone https://github.com/afsanarozan/exam.git;',
                                     )
                                 ]
                             )
@@ -44,7 +44,6 @@ pipeline {
             }
         }
         
-
         stage('Build Image') {
             steps{
                script {
@@ -55,8 +54,8 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        remoteDirectory: "exam",
-                                        execCommand: "cd exam; sudo docker build -t afsanarozan/exam:v2 .",
+                                        remoteDirectory: 'exam',
+                                        execCommand: 'cd exam; sudo docker build -t afsanarozan/exam:v2 .',
                                         execTimeout: 120000,
                                     )
                                 ]

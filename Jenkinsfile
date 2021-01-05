@@ -54,8 +54,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        remoteDirectory: "exam",
-                                        execCommand: "cd exam; sudo docker build -t afsanarozan/exam:v2 .",
+                                        execCommand: "sudo docker build -t afsanarozan/exam:v2 .",
                                         execTimeout: 6000,
                                     )
                                 ]

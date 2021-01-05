@@ -54,9 +54,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        remoteDirectory: 'exam',
-                                        execCommand: 'cd exam; sudo docker build -t afsanarozan/exam:v2 .',
-                                        execTimeout: 120000,
+                                        builderDocker = docker.build('afsanarozan/exam:v2')
                                     )
                                 ]
                             )
@@ -65,6 +63,7 @@ pipeline {
                 }
             }
         }
+        
 
         stage('Deployment') {
             when {

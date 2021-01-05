@@ -34,7 +34,6 @@ pipeline {
             steps{
                 script{
                    sh 'docker system prune --all',
-                   builderDocker = docker.build('afsanarozan/exam:v2')
                }
             }
         }

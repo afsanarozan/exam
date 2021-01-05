@@ -51,7 +51,6 @@ metadata:
 spec:
     selector:
       app: services
-    type: NodePort
     ports:
       - port: 80
         targetPort: 3000

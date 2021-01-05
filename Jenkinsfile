@@ -48,7 +48,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'git clone https://github.com/afsanarozan/cafe-frontend.git',
+                                        execCommand: 'sudo kubectl apply -f simple-k8s-deployment.yml',
                                     )
                                 ]
                             )

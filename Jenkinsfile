@@ -10,30 +10,10 @@ pipeline {
         
     }
     stages {
-        // stage('Clone Code') {
-        //     steps{
-        //        script {
-        //             sshPublisher(
-        //                 publishers: [
-        //                     sshPublisherDesc(
-        //                         configName: 'nopal',
-        //                         verbose: false,
-        //                         transfers: [
-        //                             sshTransfer(
-        //                                 execCommand: 'git clone https://github.com/afsanarozan/exam.git;',
-        //                             )
-        //                         ]
-        //                     )
-        //                 ]
-        //             )
-        //         }
-        //     }
-        // }
-
         stage('Build Project') {
             steps{
                 script{
-                   execCommand: 'docker system prune --all'
+                   builderDocker = docker.build('afsanarozan/exam:v2')
                }
             }
         }
@@ -70,9 +50,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        remoteDirectory: "exam",
-                                        execCommand: 'cd exam; sudo kubectl apply -f simple-k8s-deployment.yml',
-                                        execTimeout: 120000,
+                                        execCommand: 'sudo kubectl apply -f simple-k8s-deployment.yml',
                                     )
                                 ]
                             )

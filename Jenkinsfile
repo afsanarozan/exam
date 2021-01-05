@@ -33,7 +33,7 @@ pipeline {
         stage('Build Project') {
             steps{
                 script{
-                   sh 'docker rmi afsanarozan/exam:v2',
+                   sh 'docker system prune --all',
                    builderDocker = docker.build('afsanarozan/exam:v2')
                }
             }

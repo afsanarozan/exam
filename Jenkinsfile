@@ -49,7 +49,7 @@ pipeline {
         stage('push Image') {
             steps{
                script {
-                   builderDocker.push("${env.GIT_BRANCH}")
+                   builderDocker.push("v2")
                }
             }
         }

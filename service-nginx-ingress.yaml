@@ -51,7 +51,7 @@ metadata:
 spec:
     selector:
       app: services
-    type: NodePort
+    type: LoadBalancer
     ports:
       - port: 80
         targetPort: 3000
@@ -59,7 +59,6 @@ spec:
         name: serviceport
 
 ---
-
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:

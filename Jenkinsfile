@@ -46,9 +46,11 @@ pipeline {
             }
         }
         
-        stage('Build Image') {
+        stage('push Image') {
             steps{
-               echo 'build..'
+               script{
+                   builderDocker.push
+               }
             }
         }
         

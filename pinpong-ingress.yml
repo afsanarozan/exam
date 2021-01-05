@@ -12,17 +12,16 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: test-service
-
+  name: pingpong
 spec:
-    replicas: 2
+    replicas: 3
     selector:
       matchLabels:
-        app: services
+        app: pingpong-apps
     template:
       metadata:
         labels:
-          app: services
+          app: pingpong-apps
       spec:
         containers:
         - name: pingpong-apps
@@ -37,27 +36,29 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-    name: test-service
-    labels:
-      app: services
+    name: pingpong-service
 spec:
-    type: LoadBalancer
     selector:
-      app: services
+      app: pingpong-apps
     ports:
       - port: 80
         targetPort: 3000
         protocol: TCP
-        name: serviceport
+
 ---
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
 metadata:
-  name: allow-all
+  name: pingpong-ingress
+  labels:
+    app: pingpong-ingress
 spec:
-  podSelector: {}
-  ingress:
-  - {}
-  policyTypes:
-  - Ingress
+  rules:
+    - host: nopal.me
+      http: 
+        paths: 
+          - backend:
+              serviceName: pingpong-service
+              servicePort: 80
+
 

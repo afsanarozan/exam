@@ -67,12 +67,6 @@ metadata:
     namespace: pingpong
 spec:
   rules:
-    - host: pingpong.com
-      http:
-        paths:
-         - backend:
-            serviceName: pingpong-service
-            servicePort: 80
     - host: www.pingpong.com
       http:
         paths:

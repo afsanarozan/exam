@@ -5,8 +5,8 @@ pipeline {
     agent any 
 
     parameters {
-        booleanParam(name: 'RunTest', defaultValue: true, description: 'Toggle this value for testing')
-        choice(name: 'CICD', choices: ['CI', 'CICD','Rollback'], description: 'pick CI / CI, CD, or Rollback')
+        booleanParam(name: 'Run', defaultValue: true, description: 'Toggle this value for testing')
+        choice(name: 'CICD', choices: ['CI', 'CICD'], description: 'pick CI / CI, CD, or Rollback')
         
     }
     stages {
@@ -48,7 +48,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'sudo kubectl apply -f simple-k8s-deployment.yml',
+                                        execCommand: 'sudo kubectl apply -f service-nginx-ingress.yaml',
                                     )
                                 ]
                             )

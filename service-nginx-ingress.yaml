@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-    name: example
+    name: pingpong
 
 ---
 apiVersion: v1
@@ -12,24 +12,24 @@ data:
 
 kind: ConfigMap
 metadata:
-    name: test-service
-    namespace: example
+    name: env-pingpong
+    namespace: pingpong
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: test-service
-    namespace: example
+    name: pingpong-app
+    namespace: pingpong
 spec:
     replicas: 2
     selector:
       matchLabels:
-        app: services
+        app: pingpong-apps
     template:
       metadata:
         labels:
-          app: services
+          app: pingpong-apps
       spec:
         containers:
         - name: pingpong-apps
@@ -38,23 +38,22 @@ spec:
             - containerPort: 3000
           envFrom:
             - configMapRef:
-                name: test-service
+                name: env-pingpong
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-    name: test-service
-    namespace: example
+    name: pingpong-service
+    namespace: pingpong
     labels:
-      app: services
+      app: pingpong-services
 spec:
     selector:
-      app: services
-    type: LoadBalancer
+      app: pingpong-apps
     ports:
       - port: 80
-        targetPort: 3000
+        targetPort: 8080
         protocol: TCP
         name: serviceport
 
@@ -62,16 +61,21 @@ spec:
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-    name: test-service
+    name: nginx-ingress
     labels:
-      name: ingress-nginx
-    namespace: example
+      name: nginx-ingress
+    namespace: pingpong
 spec:
   rules:
-    - host: k8s.example.local
+    - host: pingpong.com
       http:
         paths:
-          - path: /
-            backend:
-              serviceName: test-service
-              servicePort: 80
+         - backend:
+            serviceName: pingpong-service
+            servicePort: 80
+    - host: www.pingpong.com
+      http:
+        paths:
+         - backend:
+            serviceName: pingpong-service
+            servicePort: 80

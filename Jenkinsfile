@@ -49,14 +49,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Run Testing') {
-            steps{
-                script {
-                    sh 'echo passed'
-                }
-            }
-        }
         
         stage('push Image') {
             when {

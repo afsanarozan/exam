@@ -20,7 +20,7 @@ metadata:
     name: pingpong-app
     namespace: pingpong
 spec:
-    replicas: 2
+    replicas: 3
     selector:
       matchLabels:
         app: pingpong-apps
@@ -63,7 +63,7 @@ metadata:
     namespace: pingpong
 spec:
   rules:
-    - host: www.pingpong.com
+    - host: pinpong.site
       http:
         paths:
          - backend:

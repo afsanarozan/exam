@@ -40,7 +40,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker stop b6c00072bb8c',
+                                        execCommand: 'docker-compose down; docker rmi afsanarozan/exam:v1; docker build -t afsanarozan/exam:v1 .',
                                         execTimeout: 120000,
                                     )
                                 ]

@@ -10,11 +10,43 @@ pipeline {
         
     }
     stages {
+        stage('Clone Project') {
+            steps{
+               script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'deploy',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'git clone https://github.com/afsanarozan/exam',
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
+            }
+        }
+
         stage('Build Project') {
             steps{
-                script{
-                   builderDocker = docker.build('afsanarozan/exam:v2')
-               }
+               script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'deploy',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'docker build -t afsanarozan/exam/v1 . ',
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
             }
         }
 
@@ -27,6 +59,11 @@ pipeline {
         }
         
         stage('push Image') {
+            when {
+                expression {
+                    CICD == 'CICD'
+                }
+            }
             steps{
                script {
                    builderDocker.push("v2")

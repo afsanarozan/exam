@@ -107,6 +107,11 @@ pipeline {
             }
         }
         stage('Run Testing Development') {
+            when {
+                expression {
+                    CICD == 'CICD'
+                }
+            }
             steps{
                 script {
                     sh 'echo passed'

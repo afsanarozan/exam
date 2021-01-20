@@ -20,7 +20,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'git clone https://github.com/afsanarozan/exam',
+                                        execCommand: 'cd exam; git pull',
                                     )
                                 ]
                             )
@@ -40,7 +40,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'cd exam; docker build -t afsanarozan/exam:v1 . ',
+                                        execCommand: 'docker rmi afsanarozan/exam:v1; docker build -t afsanarozan/exam:v1 . ',
                                     )
                                 ]
                             )

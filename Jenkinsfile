@@ -73,7 +73,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker push afsanarozan/exam:v1',
+                                        execCommand: 'docker image prune -f; docker push afsanarozan/exam:v1',
                                     )
                                 ]
                             )

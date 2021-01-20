@@ -97,7 +97,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker-compose up -d',
+                                        execCommand: 'cd exam; docker-compose up -d',
                                     )
                                 ]
                             )

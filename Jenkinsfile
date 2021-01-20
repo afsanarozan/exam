@@ -41,7 +41,6 @@ pipeline {
                                 transfers: [
                                     sshTransfer(
                                         execCommand: 'docker build -t afsanarozan/exam:v1 .',
-                                        execTimeout: 120000,
                                     )
                                 ]
                             )

@@ -40,7 +40,7 @@ pipeline {
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'docker build -t afsanarozan/exam:v1 .',
+                                        execCommand: 'cd exam; docker build -t afsanarozan/exam:v1 .',
                                     )
                                 ]
                             )

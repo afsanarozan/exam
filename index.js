@@ -9,7 +9,7 @@ app.options('*', cors()) // include before other routes
 app.use(cors())
 
 app.get("/", (req, res) => {
-	return res.json({data: "Connected" });
+	return res.json({data: "Ok" });
 });
 
 app.get("/ping", (req, res) => {

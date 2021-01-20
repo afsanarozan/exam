@@ -63,7 +63,7 @@ metadata:
     namespace: pingpong
 spec:
   rules:
-    - host: pinpong.site
+    - host: pingpong.site
       http:
         paths:
          - backend:

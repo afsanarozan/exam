@@ -66,8 +66,20 @@ pipeline {
             }
             steps{
                script {
-                   builderDocker.push("v2")
-               }
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'deploy',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'docker push afsanarozan/exam:v1',
+                                    )
+                                ]
+                            )
+                        ]
+                    )
+                }
             }
         }
         stage('Deployment') {
@@ -81,11 +93,11 @@ pipeline {
                     sshPublisher(
                         publishers: [
                             sshPublisherDesc(
-                                configName: 'nopal',
+                                configName: 'deploy',
                                 verbose: false,
                                 transfers: [
                                     sshTransfer(
-                                        execCommand: 'sudo kubectl apply -f service-nginx-ingress.yaml',
+                                        execCommand: 'docker run -d -p 3000:3000 afsanarozan/exam:v1',
                                     )
                                 ]
                             )
@@ -96,8 +108,20 @@ pipeline {
         }
         stage('Run Testing Development') {
             steps{
-                script{
-                    sh 'echo passed'
+               script {
+                    sshPublisher(
+                        publishers: [
+                            sshPublisherDesc(
+                                configName: 'deploy',
+                                verbose: false,
+                                transfers: [
+                                    sshTransfer(
+                                        execCommand: 'curl localhost:3000',
+                                    )
+                                ]
+                            )
+                        ]
+                    )
                 }
             }
         }

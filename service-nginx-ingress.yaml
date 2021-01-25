@@ -63,7 +63,7 @@ metadata:
     namespace: pingpong
 spec:
   rules:
-    - host: pingpong.site
+    - host: pingpong.afsanarozannaufal.site
       http:
         paths:
          - backend:
